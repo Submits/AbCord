@@ -1,0 +1,16 @@
+{
+    "name": "host",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+      "test": "node server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.17.2",
+      "faunadb": "^4.4.2"
+    }
+  }

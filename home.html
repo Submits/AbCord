@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AbCord</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+    <style>
+
+@font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100&display=swap');
+
+
+        *{
+            margin: 0;
+            
+            
+        }
+
+        .serverIcon{
+            width: 65%;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 7px;
+        }
+        .serverIcon:hover{
+            border-radius: 30%;
+        }
+
+        .serverList{
+            float: left; 
+            width:4% ;
+            background-color: #202225; 
+            height: 100vh; 
+            text-align: center; 
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+
+
+        ::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background: #36383b;
+    border-radius: 5px;
+;
+
+}
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 80%;
+  background-color: #18191c;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 999;
+  top: 100%;
+  left:5%;
+  word-break: break-all;
+
+  
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.serverList::-webkit-scrollbar{
+    display: none;
+}
+
+
+
+.channelLabel{
+    background-color: none;
+    border-radius: 2px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+    color: #72767d;
+    overflow-x: hidden;
+    cursor: pointer;
+    white-space:nowrap;
+    
+}
+.channelLabel:hover{
+    background-color: #3c3f45;
+    color: #a8a8ac;
+    
+}
+
+.channelHashtag{
+    font-weight: bold;
+    font-size: 25px;
+    vertical-align: middle;
+    padding-left: 6px;
+    padding-right: 6px;
+    
+}
+
+.channelList{
+    float: left; 
+    width: 15%; 
+    background-color: #2f3136; 
+    height: 100vh; 
+    z-index: -5; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+    font-weight: 500;
+    
+}
+.channelList::-webkit-scrollbar{
+    display: none;
+}
+
+.guildName{
+    background-color: #2f3136;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-bottom: 1px solid #151515;
+    margin-bottom: 15px;
+    color: white;
+    position: -webkit-sticky;
+  position: sticky;
+  overflow-x: hidden;
+  
+  top: 0;
+}
+
+.guildLabel{
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.messageList{
+
+    float: left; 
+    width: 81%; 
+    background-color: #36393f; 
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-wrap: break-word;
+    word-wrap: break-all;
+}
+
+
+
+.messageList::-webkit-scrollbar {
+    width: 7px;
+}
+.messageList::-webkit-scrollbar-thumb {
+    background: #121212;
+    border-radius: 5px;
+;
+
+}
+.messageList::-webkit-scrollbar-track {
+    background: none;
+}
+
+.channelName{
+    background-color: #36393f;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-bottom: 1px solid #151515;
+    margin-bottom: 15px;
+    color: white;
+    position: -webkit-sticky;
+  position: sticky;
+  overflow-x: hidden;
+  
+  top: 0;
+}
+
+.channelText{
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.bigHashtag{
+    font-weight: bold;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.messageDiv{
+    background-color: none;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.messageImage {
+  flex: 0 0 4%;
+  overflow-y: auto;
+overflow-x: hidden;
+padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.messageContent {
+  flex: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.userImage{
+    width: 80%;
+    border-radius: 50%;
+
+    
+}
+
+.messageUsername{
+    font-weight: 500;
+    color: white;
+    margin-bottom: 3px;
+    display: block;
+}
+
+.messageText{
+    color: white;
+}
+
+.messageDate{
+    font-size: 13px;
+    margin-left: 10px;
+    color: #72767d;
+}
+
+.accountDiv{
+    position: absolute;
+    bottom: 0;
+    background-color: #292b2f;
+    width: 14%;
+    padding: 0.5%;
+    color: white;
+    word-break: break-all;
+    font-size: 14px;
+    
+}
+
+.accountImage {
+  flex: 0 0 15%;
+  overflow-y: auto;
+overflow-x: hidden;
+padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.accountContent {
+  flex: 1;
+  text-overflow: ellipsis;
+    align-items: center;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.userTag{
+    font-size: 13px;
+    color: #72767d;
+    font-weight: 800;
+}
+
+.contentImage{
+
+    max-width: 30%;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    cursor: pointer;
+}
+
+.contentVideo{
+    max-width: 20%;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: none;
+  margin: 15% auto; 
+  padding: 20px;
+  width: 50%; 
+}
+
+body{
+    font-family: 'Whitney';
+}
+    </style>
+    <body onload="getGuilds()">
+        <div id="serverList" class="serverList">
+            
+
+
+        </div>
+ <div class="channelList">
+<div class="guildName">
+<label class="guildLabel" id="guildName">Abcord Server</label>
+</div>
+    <div id="channelList">
+        
+    </div>
+    <div class="accountDiv">
+        <div class="wrapper">
+            <div class="accountImage">
+                <image id="pfp" class="userImage" src="https://cdn.discordapp.com/attachments/962800921677553714/963169037322440714/weiland-posted-up-with-a-midget-holding-a-bazooka.jpg"></image>
+            </div>
+            <div class="accountContent">
+<label style=" font-weight: 600;" id="username">User</label><br>
+<label id="tag" class="userTag">#0001</label>
+            </div>
+        </div>
+     </div>
+
+</div>
+ <div class="messageList">
+    <div class="channelName">
+        <label class="bigHashtag">#</label><label class="channelText" id="channelName">Abcord v5</label>
+        </div>
+
+        
+
+        <div id="messages">
+        <div class="messageDiv">
+<div class="wrapper">
+<div class="messageImage">
+<image class="userImage" src="https://cdn.discordapp.com/attachments/962800921677553714/963169037322440714/weiland-posted-up-with-a-midget-holding-a-bazooka.jpg"></image>
+</div>
+<div class="messageContent">
+<label class="messageUsername">absq<label class="messageDate">Now</label></label>
+<p class="messageText">Welcome to Abcord v5, <label style="font-weight: bold;" id="welcomeName"></label>! Click on one of your servers to get started.</p>
+</div>
+</div>
+        </div>
+
+
+    </div><br><br>
+            
+
+
+ </div>
+ <br style="clear: left;"/>
+
+ <div id="imgModal" class="modal">
+
+    <div class="modal-content">
+      <img style="width: 100%;" id="fullImage">
+    </div>
+  
+  </div>
+    </body>
+    <script>
+
+let USER_TOKEN = ""
+
+      if(localStorage.getItem("absqToken") == null)
+      {
+        window.location.href = "login.html"
+      }
+      else{
+        USER_TOKEN = localStorage.getItem("absqToken")
+      }
+let currentChannel = ""
+let ws = null
+
+async function getGuilds(){
+
+    ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json");
+    ws.onmessage = messageHandler;
+    ws.onclose = connect;
+
+    let userDetails = await getUserDetails();
+    document.getElementById("username").innerHTML = userDetails.username
+    document.getElementById("welcomeName").innerHTML = userDetails.username
+    document.getElementById("tag").innerHTML = "#" + userDetails.discriminator
+    let icon = ""
+    if(userDetails.avatar == null){
+        icon = "https://dummyimage.com/96x96/36393f/ffffff.png&text=" + userDetails.username.charAt(0)
+    }
+    else{
+        icon = "https://cdn.discordapp.com/avatars/" + userDetails.id + "/" +  userDetails.avatar + ".webp?size=80"
+    }
+    document.getElementById("pfp").src = icon
+var response = await fetch("https://discord.com/api/v9/users/@me/guilds", {
+    "headers": {
+      "authorization": USER_TOKEN
+    },
+    "body": null,
+    "method": "GET",
+  });
+  const data = await response.json()
+
+
+  let html = ""
+  console.log(data)
+  for ( var i = 0; i < data.length; i++ ) {
+
+    let icon = ""
+    if(data[i].icon == null){
+        icon = "https://dummyimage.com/96x96/36393f/ffffff.png&text=" + data[i].name.charAt(0)
+    }
+    else{
+        icon = "https://cdn.discordapp.com/icons/" + data[i].id + "/" + data[i].icon + ".webp?size=96"
+    }
+    html += `<div class="tooltip">
+    <img onclick="loadChannels('` +  data[i].id + `', '` + data[i].name.replace(/'/g, "[APOSTROPHE SYMBOL]") + `')" class="serverIcon" src="` + icon + `">
+    <span class="tooltiptext">` +  data[i].name + `</span>
+  </div><br>`
+
+  }
+ 
+  document.getElementById("serverList").innerHTML = "<br>" + html + "<br>"
+
+
+}
+
+async function loadChannels(id, guildName){
+    
+document.getElementById("guildName").innerHTML = guildName.replace(/\[APOSTROPHE SYMBOL\]/g, "'")
+    var response = await 
+    fetch("https://discord.com/api/v9/guilds/" + id + "/channels", {
+        "headers": {
+          "authorization": USER_TOKEN
+        },
+        "body": null,
+        "method": "GET",
+      });
+  const data = await response.json()
+  console.log(data)
+  let html = ""
+  for ( var i = 0; i < data.length; i++ ) {
+
+  
+    if(data[i].type == 0){
+        html += `<div onclick="loadMessages('` +  data[i].id + `', '` + data[i].name.replace(/'/g, "[APOSTROPHE SYMBOL]") + `')" class="channelLabel">
+        <label class="channelHashtag">#</label><label>` + data[i].name + `</label>
+    </div>`
+    }
+
+  }
+
+
+document.getElementById("channelList").innerHTML = html + "<br><br><br><br>"
+ 
+}
+
+
+async function loadMessages(id, channelName){
+
+    document.getElementById("channelName").innerHTML = channelName.replace(/\[APOSTROPHE SYMBOL\]/g, "'")
+    var response = await 
+    fetch("https://discord.com/api/v9/channels/" + id + "/messages?limit=100", {
+        "headers": {
+          "authorization": USER_TOKEN
+        },
+        "body": null,
+        "method": "GET",
+      });
+  const data = await response.json()
+  console.log(data)
+  let html = ""
+
+  data.reverse()
+  for ( var i = 0; i < data.length; i++ ) {
+
+    let icon = ""
+    if(data[i].author.avatar == null){
+        icon = "https://dummyimage.com/96x96/5865F2/ffffff.png&text=" + data[i].author.username.charAt(0)
+    }
+    else{
+        icon = "https://cdn.discordapp.com/avatars/" + data[i].author.id + "/" + data[i].author.avatar + ".webp?size=80"
+    }
+
+
+    const dateTimeFormat = new Intl.DateTimeFormat('en', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+    });
+
+    let attachments = ""
+
+
+
+    if(data[i].attachments != [])
+                {
+                    for ( var z = 0; z < data[i].attachments.length; z++ ) {
+            
+                        if( data[i].attachments[z].content_type == "image/png"){
+                            attachments += `<img  onclick="showFullscreenImage('` +  data[i].attachments[z].proxy_url + `')" class="contentImage" src="` + data[i].attachments[z].proxy_url + `"><br>`
+                        }
+
+                        if( data[i].attachments[z].content_type == undefined){
+                            attachments += `<img  onclick="showFullscreenImage('` +  data[i].attachments[z].proxy_url + `')" class="contentImage" src="` + data[i].attachments[z].proxy_url + `"><br>`
+                        }
+
+                        if( data[i].attachments[z].content_type == "image/jpeg"){
+                            attachments += `<img  onclick="showFullscreenImage('` +  data[i].attachments[z].proxy_url + `')" class="contentImage" src="` + data[i].attachments[z].proxy_url + `"><br>`
+                        }
+            
+                        if( data[i].attachments[z].content_type == "image/gif"){
+                            attachments += `<img onclick="showFullscreenImage('` +  data[i].attachments[z].proxy_url + `')" class="contentImage" src="` + data[i].attachments[z].proxy_url + `"><br>`
+                        }
+            
+                        if( data[i].attachments[z].content_type == "video/mp4"){
+                            attachments += `<video class="contentVideo" controls>
+                            <source src="` + data[i].attachments[z].proxy_url  + `" type="video/mp4">
+                          </video><br>`
+                        }
+            
+                        if( data[i].attachments[z].content_type == "video/quicktime"){
+                            attachments += `<video class="contentVideo" controls>
+                            <source src="` + data[i].attachments[z].proxy_url  + `">
+                          </video><br>`
+                        }
+            
+                        if( data[i].attachments[z].content_type == "audio/mpeg"){
+                attachments += `<audio controls>
+                          <source src="` + data[i].attachments[z].proxy_url + `" type="` + data[i].attachments[z].content_type + `">
+                        </audio><br>`
+                        }
+                    }
+                    attachments = "<br>" + attachments
+                }
+            
+                if(data[i].embeds != [])
+                {
+                    for ( var z = 0; z < data[i].embeds.length; z++ ) {
+            
+                       if( data[i].embeds[z].type == "video"){
+                            if(data[i].embeds[z].provider != undefined)
+                            {
+                                if(data[i].embeds[z].provider.name == "YouTube")
+                                {
+                                attachments += `<iframe style="border:none" src="https://youtube.com/embed/` + data[i].embeds[z].url.substring(data[i].embeds[z].url.lastIndexOf('/') + 1).replace(/watch\?v=/g, "") + `"></iframe><br>`
+                                }
+                            }
+                            else{
+                            attachments += `<video class="contentVideo" controls>
+                            <source src="` + data[i].embeds[z].url  + `">
+                          </video><br>`
+                            }
+                        }
+            
+                        if( data[i].embeds[z].type == "image"){
+                            attachments += `<img onclick="showFullscreenImage('` + data[i].embeds[z].url + `')" class="contentImage" src="` + data[i].embeds[z].url + `"><br>`
+                        }
+            
+                        if( data[i].embeds[z].type == "gifv"){
+                            if(data[i].embeds[z].provider.name == "Tenor")
+                            {
+                                attachments += `<video class="contentVideo" controls>
+                                <source src="` + data[i].embeds[z].video.proxy_url  + `">
+                              </video><br>`
+                            }
+                            else{
+                            attachments += `<img onclick="showFullscreenImage('` + data[i].embeds[z].url + `')" class="contentImage" src="` + data[i].embeds[z].url + `"><br>`
+                            }
+                        }
+            
+            
+                    }
+                    attachments = "<br>" + attachments
+                }
+
+    html += `<div class="messageDiv">
+    <div class="wrapper">
+    <div class="messageImage">
+    <image class="userImage" src="` + icon + `"></image>
+    </div>
+    <div class="messageContent">
+    <label class="messageUsername">` + data[i].author.username + `<label class="messageDate">` + dateTimeFormat.format(new Date(data[i].timestamp)) + `</label></label>
+    <p class="messageText">` +  data[i].content + attachments + `</p>
+    </div>
+    </div>
+            </div>`
+
+  }
+
+  document.getElementById("messages").innerHTML = html
+  var element =  document.getElementsByClassName("messageList")[0]
+element.scrollTop = element.scrollHeight;
+  currentChannel = id
+}
+
+async function getUserDetails(){
+    var response = await fetch("https://discord.com/api/v9/users/@me", {
+        "headers": {
+          "authorization": USER_TOKEN
+        },
+        "body": null,
+        "method": "GET",
+      });
+      const data = await response.json()
+      return data;
+}
+
+function doLogin() {
+    let msg = {
+        "token": USER_TOKEN,
+        "properties": {
+            "$os": "browser",
+            "$browser": "chrome",
+            "$device": "cloud9"
+        },
+        "compress": false
+    };
+    let payload = {
+        "op": 2,
+        "d": msg
+    };
+    ws.send(JSON.stringify(payload));
+}
+
+
+function messageHandler(message) {
+    let json = message.data;
+    json = JSON.parse(json);
+
+    if (json.op == 10) {
+        doLogin();
+    } else if (json.op == 0) {
+        if (json.t == "MESSAGE_CREATE") {
+
+
+            let icon = ""
+            if(json.d.author.avatar == null){
+                icon = "https://dummyimage.com/96x96/36393f/ffffff.png&text=" +  json.d.author.username.charAt(0)
+            }
+            else{
+                icon = "https://cdn.discordapp.com/avatars/" + json.d.author.id + "/" + json.d.author.avatar + ".webp?size=80"
+            }
+        
+        
+            const dateTimeFormat = new Intl.DateTimeFormat('en', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric'
+            });
+
+
+            if(parseInt(json.d.channel_id) == parseInt(currentChannel))
+            {
+
+                let attachments = ""
+
+                if(json.d.attachments != [])
+                {
+                    for ( var z = 0; z < json.d.attachments.length; z++ ) {
+            
+                        if( json.d.attachments[z].content_type == "image/png"){
+                            attachments += `<img  onclick="showFullscreenImage('` + son.d.attachments[z].proxy_url + `')" class="contentImage" src="` + json.d.attachments[z].proxy_url + `"><br>`
+                        }
+
+
+                        if( json.d.attachments[z].content_type == undefined){
+                            attachments += `<img  onclick="showFullscreenImage('` + son.d.attachments[z].proxy_url + `')" class="contentImage" src="` + json.d.attachments[z].proxy_url + `"><br>`
+                        }
+
+                        if( json.d.attachments[z].content_type == "image/jpeg"){
+                            attachments += `<img  onclick="showFullscreenImage('` +  json.d.attachments[z].proxy_url + `')" class="contentImage" src="` + json.d.attachments[z].proxy_url + `"><br>`
+                        }
+            
+                        if( json.d.attachments[z].content_type == "image/gif"){
+                            attachments += `<img onclick="showFullscreenImage('` + son.d.attachments[z].proxy_url + `')" class="contentImage" src="` + json.d.attachments[z].proxy_url + `"><br>`
+                        }
+            
+                        if( json.d.attachments[z].content_type == "video/mp4"){
+                            attachments += `<video class="contentVideo" controls>
+                            <source src="` + json.d.attachments[z].proxy_url  + `" type="video/mp4">
+                          </video><br>`
+                        }
+            
+                        if( json.d.attachments[z].content_type == "video/quicktime"){
+                            attachments += `<video class="contentVideo" controls>
+                            <source src="` + json.d.attachments[z].proxy_url  + `">
+                          </video><br>`
+                        }
+            
+                        if( json.d.attachments[z].content_type == "audio/mpeg"){
+                attachments += `<audio controls>
+                          <source src="` + json.d.attachments[z].proxy_url + `" type="` + json.d.attachments[z].content_type + `">
+                        </audio><br>`
+                        }
+                    }
+                    attachments = "<br>" + attachments
+                }
+            
+                if(json.d.embeds != [])
+                {
+                    for ( var z = 0; z < json.d.embeds.length; z++ ) {
+            
+                       /* if( json.d.embeds[z].type == "video"){
+                            if(json.d.embeds[z].provider.name == "YouTube")
+                            {
+                                attachments += `<iframe style="border:none" src="https://youtube.com/embed/` + json.d.embeds[z].url.substring(json.d.embeds[z].url.lastIndexOf('/') + 1).replace(/watch\?v=/g, "") + `"></iframe><br>`
+                            }
+                            else{*/
+                            attachments += `<video class="contentVideo" controls>
+                            <source src="` +json.d.embeds[z].url  + `">
+                          </video><br>`
+                           // }
+                       // }
+            
+            
+                        if( json.d.embeds[z].type == "image"){
+                            attachments += `<img onclick="showFullscreenImage('` + json.d.embeds[z].url + `')" class="contentImage" src="` + json.d.embeds[z].url + `"><br>`
+                        }
+            
+                        if( json.d.embeds[z].type == "gifv"){
+                            if(json.d.embeds[z].provider.name == "Tenor")
+                            {
+                                attachments += `<video class="contentVideo" controls>
+                                <source src="` + json.d.embeds[z].video.proxy_url  + `">
+                              </video><br>`
+                            }
+                            else{
+                            attachments += `<img onclick="showFullscreenImage('` + json.d.embeds[z].url + `')" class="contentImage" src="` + json.d.embeds[z].url + `"><br>`
+                            }
+                        }
+            
+            
+                    }
+                    attachments = "<br>" + attachments
+                }
+
+
+                document.getElementById("messages").innerHTML += `<div class="messageDiv">
+                <div class="wrapper">
+                <div class="messageImage">
+                <image class="userImage" src="` + icon + `"></image>
+                </div>
+                <div class="messageContent">
+                <label class="messageUsername">` + json.d.author.username + `<label class="messageDate">` + dateTimeFormat.format(new Date(json.d.timestamp)) + `</label></label>
+                <p class="messageText">` +  json.d.content + attachments + `</p>
+                </div>
+                </div>
+                        </div>`
+
+                       
+                        var element =  document.getElementsByClassName("messageList")[0]
+                        element.scrollTop = element.scrollHeight;
+
+            }
+
+
+            }
+
+    }
+}
+
+function connect() {
+        ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json");
+        ws.onmessage = messageHandler;
+        ws.onclose = connect;
+}
+
+
+function showFullscreenImage(url){
+document.getElementById("imgModal").style.display = "block";
+document.getElementById("fullImage").src = url
+
+
+
+
+}
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById("imgModal")) {
+        document.getElementById("imgModal").style.display = "none";
+    }
+  }
+
+
+  var s = document.styleSheets[0];
+  function changeStylesheetRule(stylesheet, selector, property, value) {
+    // Make the strings lowercase
+    selector = selector.toLowerCase();
+    property = property.toLowerCase();
+    value = value.toLowerCase();
+    
+    // Change it if it exists
+    for(var i = 0; i < stylesheet.cssRules.length; i++) {
+        var rule = stylesheet.cssRules[i];
+        if(rule.selectorText === selector) {
+            rule.style[property] = value;
+            return;
+        }
+    }
+  
+    // Add it if it does not
+    stylesheet.insertRule(selector + " { " + property + ": " + value + "; }", 0);
+}
+    </script>
+</html>
